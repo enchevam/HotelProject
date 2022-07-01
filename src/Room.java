@@ -3,16 +3,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Room {
-    private Integer roomNumber;
+    private final int roomNumber;
     private Date roomEnterDate;
-    private Date roomFinishDate;
+    private Date roomLeaveDate;
     private String roomNotes;
     private boolean isUsed;
 
 
     //Extras
-    private short roomBeds;
-
+    private final short roomBeds;
     private boolean includesAC;
     private boolean includesBalcony;
     private boolean includesBreakfast;
@@ -20,10 +19,6 @@ public class Room {
 
     public short getRoomBeds() {
         return roomBeds;
-    }
-
-    public void setRoomBeds(short roomBeds) {
-        this.roomBeds = roomBeds;
     }
 
     public boolean isIncludesAC() {
@@ -58,9 +53,6 @@ public class Room {
         this.includesBedStead = includesBedStead;
     }
 
-    public Room returnRoom() {
-        return this;
-    }
 
     public Room(int roomNum, String[] args) {
         this.roomNumber = roomNum;
@@ -68,7 +60,7 @@ public class Room {
         this.roomNotes = "";
         try {
             this.roomEnterDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
-            this.roomFinishDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
+            this.roomLeaveDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
         } catch(Exception ignored) {}
 
         includesAC = false;
@@ -97,7 +89,7 @@ public class Room {
         this.roomNotes = "";
         try {
             this.roomEnterDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
-            this.roomFinishDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
+            this.roomLeaveDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
         } catch(Exception ignored) {}
     }
 
@@ -114,15 +106,11 @@ public class Room {
     }
 
     public Date getRoomFinishDate() {
-        return roomFinishDate;
+        return roomLeaveDate;
     }
 
     public void setRoomFinishDate(Date roomFinishDate) {
-        this.roomFinishDate = roomFinishDate;
-    }
-
-    public String getRoomNotes() {
-        return roomNotes;
+        this.roomLeaveDate = roomFinishDate;
     }
 
     public void setRoomNotes(String roomNotes) {

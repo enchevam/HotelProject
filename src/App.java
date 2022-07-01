@@ -215,15 +215,20 @@ public class App {
         } while (!shouldStop);
     }
 
+    public static void generateRoom(List<Room> rooms){
+
+        for(int i = 0; i < 5; i++) {
+            rooms.add(new Room(101 + i, roomExtras[i].split(" ")));
+        }
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Room> rooms = new ArrayList<>();
 
-        for(int i = 0; i < 5; i++) {
-            rooms.add(new Room(101 + i, roomExtras[i].split(" ")));
-        }
 
+        generateRoom(rooms);
         hotelMenu(sc,rooms);
 
     }
