@@ -69,7 +69,7 @@ public class Room {
         try {
             this.roomEnterDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
             this.roomFinishDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
-        } catch(Exception e) {}
+        } catch(Exception ignored) {}
 
         includesAC = false;
         includesBalcony = false;
@@ -77,14 +77,11 @@ public class Room {
         includesBreakfast = false;
 
         for(String s : args) {
-            if(s.equals("1")) {
-                includesAC = true;
-            } else if(s.equals("2")) {
-                includesBalcony = true;
-            } else if(s.equals("3")) {
-                includesBreakfast = true;
-            } else if(s.equals("4")) {
-                includesBedStead = true;
+            switch (s) {
+                case "1" -> includesAC = true;
+                case "2" -> includesBalcony = true;
+                case "3" -> includesBreakfast = true;
+                case "4" -> includesBedStead = true;
             }
         }
 
@@ -101,7 +98,7 @@ public class Room {
         try {
             this.roomEnterDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
             this.roomFinishDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
-        } catch(Exception e) {}
+        } catch(Exception ignored) {}
     }
 
     public int getRoomNumber() {

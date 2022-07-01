@@ -8,14 +8,15 @@ public class App {
     final static String[] roomExtras = {"1 3","2 3 4", "3 4 5", "1 3 5", "1 2 4"};
 
     public static String checkDots(String str) {
-        String newString = "";
+        StringBuilder newString = new StringBuilder();
         for(int i = 0; i < str.length(); i++) {
             if(str.charAt(i) != '.')
-                newString += str.charAt(i);
+
+                newString.append(str.charAt(i));
             else
-                newString += "/";
+                newString.append("/");
         }
-        return newString;
+        return newString.toString();
     }
 
     public static void reserveRoom(Scanner sc, List<Room> rooms) throws ParseException {
@@ -30,10 +31,10 @@ public class App {
         }
         Room mainRoom = null;
 
-        for(Room _room : rooms) {
-            if(_room.getRoomNumber() == Integer.parseInt(room)) {
-                mainRoom = _room;
-                if(_room.isUsed()) {
+        for(Room rm : rooms) {
+            if(rm.getRoomNumber() == Integer.parseInt(room)) {
+                mainRoom = rm;
+                if(rm.isUsed()) {
                     System.out.println("Room is already being used.");
                     return;
                 }
@@ -84,7 +85,7 @@ public class App {
             }
         }
 
-        if(isRoomFound == false)
+        if(!isRoomFound)
             System.out.println("Couldn't find room.");
     }
 
@@ -100,7 +101,7 @@ public class App {
     public static void availableRooms(List<Room> rooms) {
         System.out.println("Currently Free Rooms");
         for (Room room : rooms) {
-            if (room.isUsed() == false) {
+            if (!room.isUsed()) {
                 System.out.println("- Room " + room.getRoomNumber());
             }
         }
@@ -172,6 +173,49 @@ public class App {
         }
     }
 
+    public static void hotelMenu(Scanner sc, List<Room> rooms ){
+
+        boolean shouldStop = false;
+        do {
+            System.out.println("Please select what you want to do:\n1. Make a reservation\n2. List free rooms\n3. Checkout room\n4. Stats\n5. Find a room\n6. Update a room\n0. Exit Program");
+            String choice = sc.next();
+            choice.trim();
+            switch (choice) {
+                case "1":
+                    try {
+                        reserveRoom(sc, rooms);
+                    } catch (ParseException ignored) {
+                    }
+                    break;
+                case "2":
+                    availableRooms(rooms);
+                    break;
+                case "3":
+                    System.out.print("Enter your room number: ");
+                    try {
+                        int id = Integer.parseInt(sc.next());
+                        checkOutRoom(rooms, id);
+                    } catch (NumberFormatException exc) {
+                        System.out.println("Please enter a valid room.");
+                    }
+                    break;
+                case "4":
+                    stats(rooms);
+                    break;
+                case "5":
+                    findRoom(rooms, sc);
+                    break;
+                case "6":
+                    updateRoom(rooms, sc);
+                    break;
+                case "0":
+                    shouldStop = true;
+                    break;
+            }
+        } while (!shouldStop);
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Room> rooms = new ArrayList<>();
@@ -180,46 +224,8 @@ public class App {
             rooms.add(new Room(101 + i, roomExtras[i].split(" ")));
         }
 
-        boolean shouldStop = false;
-        while(true) {
-            System.out.println("Please select what you want to do:\n1. Make a reservation\n2. List free rooms\n3. Checkout room\n4. Stats\n5. Find a room\n6. Update a room\n0. Exit Program");
-            String choise = sc.next();
-            choise.trim();
-            switch(choise) {
-                case"1":
-                    try {
-                        reserveRoom(sc, rooms);
-                    }catch(ParseException exc) {}
-                    break;
-                case"2":
-                    availableRooms(rooms);
-                    break;
-                case"3":
-                    System.out.print("Enter your room number: ");
-                    try {
-                        Integer id = Integer.parseInt(sc.next());
-                        checkOutRoom(rooms, id);
-                    } catch(NumberFormatException exc) {
-                        System.out.println("Please enter a valid room.");
-                    }
-                    break;
-                case"4":
-                    stats(rooms);
-                    break;
-                case"5":
-                    findRoom(rooms, sc);
-                    break;
-                case"6":
-                    updateRoom(rooms, sc);
-                    break;
-                case"0":
-                    shouldStop = true;
-                    break;
-            }
-            if(shouldStop == true) {
-                break;
-            }
-        }
+        hotelMenu(sc,rooms);
+
     }
 
 }
