@@ -135,7 +135,7 @@ public class App {
     public static void updateMenu(Room currentRoom, Scanner sc){
         while(true) {
             System.out.println("Which parts of the room would you like to update?");
-            System.out.println("1. With a sea view. - " + (currentRoom.isIncludesAC() ? "Yes" : "No"));
+            System.out.println("1. With a sea view. - " + (currentRoom.isIncludesSeaView() ? "Yes" : "No"));
             System.out.println("2. Room Includes breakfast - " + (currentRoom.isIncludesBreakfast() ? "Yes" : "No"));
             System.out.println("3. Room Includes a bedstead - " + (currentRoom.isIncludesBedStead() ? "Yes" : "No"));
             System.out.println("0. Go Back");
@@ -143,15 +143,12 @@ public class App {
             String input = sc.next();
             switch(input) {
                 case "1":
-                    currentRoom.setIncludesAC(!currentRoom.isIncludesAC());
+                    currentRoom.setIncludesAC(!currentRoom.isIncludesSeaView());
                     break;
                 case "2":
-                    currentRoom.setIncludesBalcony(!currentRoom.isIncludesBalcony());
-                    break;
-                case "3":
                     currentRoom.setIncludesBreakfast(!currentRoom.isIncludesBreakfast());
                     break;
-                case "4":
+                case "3":
                     currentRoom.setIncludesBedStead(!currentRoom.isIncludesBedStead());
                     break;
                 case "0":

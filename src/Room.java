@@ -11,8 +11,7 @@ public class Room {
 
     //Extras
     private final short roomBeds;
-    private boolean includesAC;
-    private boolean includesBalcony;
+    private boolean includesSieView;
     private boolean includesBreakfast;
     private boolean includesBedStead;
 
@@ -20,21 +19,11 @@ public class Room {
         return roomBeds;
     }
 
-    public boolean isIncludesAC() {
-        return includesAC;
+    public boolean isIncludesSeaView() {
+        return includesSieView;
     }
 
-    public void setIncludesAC(boolean includesAC) {
-        this.includesAC = includesAC;
-    }
-
-    public boolean isIncludesBalcony() {
-        return includesBalcony;
-    }
-
-    public void setIncludesBalcony(boolean includesBalcony) {
-        this.includesBalcony = includesBalcony;
-    }
+    public void setIncludesAC(boolean includesSieView) { this.includesSieView = includesSieView; }
 
     public boolean isIncludesBreakfast() {
         return includesBreakfast;
@@ -62,17 +51,15 @@ public class Room {
             this.roomLeaveDate = new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000");
         } catch(Exception ignored) {}
 
-        includesAC = false;
-        includesBalcony = false;
+        includesSieView = false;
         includesBedStead = false;
         includesBreakfast = false;
 
         for(String s : args) {
             switch (s) {
-                case "1" -> includesAC = true;
-                case "2" -> includesBalcony = true;
-                case "3" -> includesBreakfast = true;
-                case "4" -> includesBedStead = true;
+                case "1" -> includesSieView = true;
+                case "2" -> includesBreakfast = true;
+                case "3" -> includesBedStead = true;
             }
         }
 
