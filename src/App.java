@@ -68,6 +68,7 @@ public class App {
         System.out.println("Reservation was created.");
     }
 
+
     public static void checkOutRoom(List<Room> rooms, int roomId) {
         boolean isRoomFound = false;
 
@@ -89,7 +90,12 @@ public class App {
             System.out.println("Couldn't find room.");
     }
 
-    public static void stats(List<Room> rooms) {
+    public static void stats(List<Room> rooms, Scanner sc) throws ParseException{
+
+        System.out.println("Enter start date: ");
+        Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkDots(sc.next()));
+        System.out.println("Enter end date: ");
+        Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkDots(sc.next()));
         for(Room room : rooms) {
             long difference = room.getRoomFinishDate().getTime() - room.getRoomEnterDate().getTime();
             TimeUnit time = TimeUnit.DAYS;
@@ -129,10 +135,9 @@ public class App {
     public static void updateMenu(Room currentRoom, Scanner sc){
         while(true) {
             System.out.println("Which parts of the room would you like to update?");
-            System.out.println("1. Room Includes an A.C. - " + (currentRoom.isIncludesAC() ? "Yes" : "No"));
-            System.out.println("2. Room Includes a balcony - " + (currentRoom.isIncludesBalcony() ? "Yes" : "No"));
-            System.out.println("3. Room Includes breakfast - " + (currentRoom.isIncludesBreakfast() ? "Yes" : "No"));
-            System.out.println("4. Room Includes a bedstead - " + (currentRoom.isIncludesBedStead() ? "Yes" : "No"));
+            System.out.println("1. With a sea view. - " + (currentRoom.isIncludesAC() ? "Yes" : "No"));
+            System.out.println("2. Room Includes breakfast - " + (currentRoom.isIncludesBreakfast() ? "Yes" : "No"));
+            System.out.println("3. Room Includes a bedstead - " + (currentRoom.isIncludesBedStead() ? "Yes" : "No"));
             System.out.println("0. Go Back");
 
             String input = sc.next();
@@ -178,7 +183,7 @@ public class App {
 
     }
 
-    public static void hotelMenu(Scanner sc, List<Room> rooms ){
+    public static void hotelMenu(Scanner sc, List<Room> rooms ) throws ParseException {
 
         boolean shouldStop = false;
         do {
@@ -205,7 +210,7 @@ public class App {
                     }
                     break;
                 case "4":
-                    stats(rooms);
+                    stats(rooms, sc);
                     break;
                 case "5":
                     findRoom(rooms, sc);
@@ -228,7 +233,7 @@ public class App {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
         List<Room> rooms = new ArrayList<>();
 
