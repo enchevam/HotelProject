@@ -97,14 +97,13 @@ public class App {
         Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkDots(sc.next()));
         long difference = 0;
         for(Room room : rooms) {
-            if((room.getRoomFinishDate().compareTo(endDate) != 0) && (room.getRoomEnterDate().compareTo(startDate) != 0 )){
-                System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
-
-            }else {
-
+            if((endDate.after(room.getRoomFinishDate())) && (startDate.before(room.getRoomEnterDate()))){
                 difference = room.getRoomFinishDate().getTime() - room.getRoomEnterDate().getTime();
                 TimeUnit time = TimeUnit.DAYS;
                 difference = time.convert(difference, TimeUnit.MILLISECONDS);
+                System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
+
+            }else {
                 System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
             }
         }
