@@ -85,7 +85,6 @@ public class App {
                 break;
             }
         }
-
         if(!isRoomFound)
             System.out.println("Couldn't find room.");
     }
@@ -96,11 +95,18 @@ public class App {
         Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkDots(sc.next()));
         System.out.println("Enter end date: ");
         Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkDots(sc.next()));
+        long difference = 0;
         for(Room room : rooms) {
-            long difference = room.getRoomFinishDate().getTime() - room.getRoomEnterDate().getTime();
-            TimeUnit time = TimeUnit.DAYS;
-            difference = time.convert(difference, TimeUnit.MILLISECONDS);
-            System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
+            if((room.getRoomFinishDate().compareTo(endDate) != 0) && (room.getRoomEnterDate().compareTo(startDate) != 0 )){
+                System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
+
+            }else {
+
+                difference = room.getRoomFinishDate().getTime() - room.getRoomEnterDate().getTime();
+                TimeUnit time = TimeUnit.DAYS;
+                difference = time.convert(difference, TimeUnit.MILLISECONDS);
+                System.out.println("- " + room.getRoomNumber() + ": " + difference + " day/s");
+            }
         }
     }
 
