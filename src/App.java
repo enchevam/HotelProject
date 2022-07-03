@@ -126,25 +126,7 @@ public class App {
         }
     }
 
-    public static void updateRoom(List<Room> rooms, Scanner sc) {
-        System.out.println("Choose a room from (101-105) to update.");
-        Room currentRoom = null;
-        try {
-            int roomNumber = Integer.parseInt(sc.next());
-            for(Room room : rooms) {
-                if(room.getRoomNumber() == roomNumber) {
-                    currentRoom = room;
-                    break;
-                }
-            }
-        } catch (NumberFormatException exc) {
-            System.out.println("Please enter a valid room number.");
-        }
-        if(currentRoom == null) {
-            System.out.println("Room doesn't exist.");
-            return;
-        }
-
+    public static void updateMenu(Room currentRoom, Scanner sc){
         while(true) {
             System.out.println("Which parts of the room would you like to update?");
             System.out.println("1. Room Includes an A.C. - " + (currentRoom.isIncludesAC() ? "Yes" : "No"));
@@ -171,6 +153,29 @@ public class App {
                     return;
             }
         }
+    }
+
+    public static void updateRoom(List<Room> rooms, Scanner sc) {
+        System.out.println("Choose a room from (101-105) to update.");
+        Room currentRoom = null;
+        try {
+            int roomNumber = Integer.parseInt(sc.next());
+            for(Room room : rooms) {
+                if(room.getRoomNumber() == roomNumber) {
+                    currentRoom = room;
+                    break;
+                }
+            }
+        } catch (NumberFormatException exc) {
+            System.out.println("Please enter a valid room number.");
+        }
+        if(currentRoom == null) {
+            System.out.println("Room doesn't exist.");
+            return;
+        }
+
+        updateMenu(currentRoom, sc);
+
     }
 
     public static void hotelMenu(Scanner sc, List<Room> rooms ){
@@ -226,7 +231,6 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Room> rooms = new ArrayList<>();
-
 
         generateRoom(rooms);
         hotelMenu(sc,rooms);
